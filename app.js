@@ -21,7 +21,7 @@ app.use(express.json());
 
 //these routes are mounted on the app
 app.use('/wiki', require('./routes/wiki'));
-app.use('/users', require('./routes/user'));
+app.use('/user', require('./routes/user'));
 
 app.get('/', function(req, res) {
   res.redirect('/wiki/');
