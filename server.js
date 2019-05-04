@@ -1,5 +1,5 @@
 const { db, Page, User } = require('./models');
-const app = require('./app')
+const app = require('./app');
 
 const PORT = 1337;
 
@@ -17,4 +17,4 @@ const init = async () => {
   });
 };
 
-init()
+init();

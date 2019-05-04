@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //these routes are mounted on the app
-// app.use('/wiki', require('./routes.wiki'));
-// app.use('/users', require('./routes/users'));
+app.use('/wiki', require('./routes/wiki'));
+app.use('/users', require('./routes/user'));
 
 app.get('/', (req, res) => {
   res.send(layout('string'));
