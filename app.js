@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
+const layout = require('./views/layout')
+const { db } = require('./models');
 
 //morgan is logging middleware for http requests
 app.use(morgan('dev'));
@@ -23,10 +25,16 @@ app.use(express.json());
 // app.use('/users', require('./routes/users'));
 
 app.get('/', (req, res) => {
-  res.json('hello world')
+  res.send(layout('string'))
 });
 
 const PORT= 1337;
+
+const auth = async () => {
+  await db.authenticate()
+   console.log('connected to the database')
+}
+auth()
 
 app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`)
