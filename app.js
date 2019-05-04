@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const path = require('path');
 const layout = require('./views/layout');
 
-
 //morgan is logging middleware for http requests
 app.use(morgan('dev'));
 
@@ -24,8 +23,8 @@ app.use(express.json());
 app.use('/wiki', require('./routes/wiki'));
 app.use('/users', require('./routes/user'));
 
-app.get('/', (req, res) => {
-  res.send(layout('string'));
+app.get('/', function(req, res) {
+  res.redirect('/wiki/');
 });
 
 module.exports = app;

@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { Page, User } = require('../models');
-const { addPage, wikiPage } = require('../views');
+const { addPage, wikiPage, main } = require('../views');
 
 //routes mounted on /wiki
 
-router.get('/', (req, res) => {
-  res.redirect('/');
+router.get('/', async (req, res, next) => {
+  try {
+    const pages = await Page.findAll();
+    res.send(main(pages));
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/add', (req, res) => {
