@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const path = require('path');
-const layout = require('./views/layout')
-const { db } = require('./models');
+const layout = require('./views/layout');
+const { db, Page, User } = require('./models');
+// const models = require('./models');
 
 //morgan is logging middleware for http requests
 app.use(morgan('dev'));
@@ -25,19 +26,25 @@ app.use(express.json());
 // app.use('/users', require('./routes/users'));
 
 app.get('/', (req, res) => {
-  res.send(layout('string'))
+  res.send(layout('string'));
 });
 
-const PORT= 1337;
+const PORT = 1337;
 
-const auth = async () => {
-  await db.authenticate()
-   console.log('connected to the database')
-}
-auth()
+// const auth = async () => {
+//   await db.authenticate();
+//   console.log('connected to the database');
+// };
+// auth();
 
-app.listen(PORT, () => {
-  console.log(`App listening in port ${PORT}`)
-})
+const init = async () => {
+  await Page.sync();
+  await User.sync();
+  app.listen(PORT, () => {
+    console.log(`App listening in port ${PORT}`);
+  });
+};
+
+init()
 
 module.exports = app;
