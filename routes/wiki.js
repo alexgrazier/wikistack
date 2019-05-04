@@ -46,8 +46,12 @@ router.get('/:slug', async (req, res, next) => {
         slug: req.params.slug,
       },
     });
-    const author = await page.getAuthor();
-    res.send(wikiPage(page, author));
+    if (page === null) {
+      res.status(404).send('No page was found with this title');
+    } else {
+      const author = await page.getAuthor();
+      res.send(wikiPage(page, author));
+    }
   } catch (error) {
     next(error);
   }
